@@ -1,8 +1,10 @@
-//program by Waseem bhat
+//Binary search using recursion
 #include <stdio.h>
+int binarySearch(int [], int, int, int);
+
 int main()
 {
-  int c, first, last, middle, n, search, array[100];
+  int c, first, last, n, search, array[100], index;
 
   printf("Enter number of elements\n");
   scanf("%d", &n);
@@ -17,21 +19,29 @@ int main()
 
   first = 0;
   last = n - 1;
-  middle = (first+last)/2;
 
-  while (first <= last) {
-    if (array[middle] < search)
-      first = middle + 1;
-    else if (array[middle] == search) {
-      printf("%d found at location %d.\n", search, middle+1);
-      break;
-    }
-    else
-      last = middle - 1;
-
-    middle = (first + last)/2;
-  }
-  if (first > last)
+  index = binarySearch(array, first, last, search);
+ 
+  if (index == -1)
     printf("Not found! %d isn't present in the list.\n", search);
+  else
+    printf("%d is present at location %d.\n", search, index + 1);
+ 
   return 0;
+}
+
+int binarySearch(int a[], int s, int e, int f) {
+  int m;
+ 
+  if (s > e) // Not found
+     return -1;
+
+  m = (s + e)/2;
+
+  if (a[m] == f)  // element found
+    return m;
+  else if (f > a[m])  
+    return binarySearch(a, m+1, e, f);
+  else
+    return binarySearch(a, s, m-1, f);
 }
