@@ -1,1 +1,1 @@
-# wsm-repository
+# wsm-c-repository
